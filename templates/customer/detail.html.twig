@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} User Detail {% endblock %}
+
+{% block body %}
+
+<div class="container mt-3">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Customer ID</th>
+                <th scope="col">Customer Name</th>
+                <th scope="col">Customer Adress</th>
+                <th scope="col">Customer Phone</th>
+                <th scope="col">Item in Cart</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td scope="row">{{ customer.id }}</td>
+                <td scope="row">{{ customer.name }}</td>
+                <td scope="row">{{ customer.fullname }}</td>
+                <td scope="row">{{ customer.email }}</td>
+                <td scope="row"></td>
+                <td scope="row">
+                <a class="btn btn-outline-warning" href="{{ path ( 'customer_update' , {'id' : customer.id } ) }}">Update</a>
+                <a class="btn btn-outline-danger" href="{{ path ( 'customer_delete' , {'id' : customer.id } ) }}"
+                                                    onclick = "return confirm('Are you sure to delete ?')"
+                >Delete</a>
+            </td>
+            </tr> 
+        </tbody>
+    </table>
+<div class="d-flex justify-content-center">
+<a class="btn btn-outline-primary" href="{{ path ('customer_create') }}">Create Customer</a>
+</div>
+</div>
+{% endblock %}

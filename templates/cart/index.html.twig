@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CartController!{% endblock %}
+
+{% block body %}
+<div class="container mt-3">
+    {% for flash in app.flashes("Success") %}
+        <p class="alert alert-primary"> {{ flash }} </p>
+    {% endfor %}
+    {% for flash in app.flashes("Error") %}
+        <p class="alert alert-danger"> {{ flash }} </p>
+    {% endfor %}
+</div>
+<div class="container-fluid">
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Cart ID</th>
+            <th scope="col">Customer ID</th>
+            <th scope="col">Product ID</th>
+            <th scope="col">Product Name</th>
+            <th scope="col">Product Quantity</th>
+            <th scope="col">Product Price</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% set sum = 0 %}
+    {% for cart in carts %}
+        {% if cart.userid == app.user.id %}
+        {% set sum = sum + cart.price*cart.quantity%}
+        <tr>
+            <td scope="row">{{ cart.id }}</td>
+            <td scope="row">{{ cart.userid }}</td>
+            <td scope="row">{{ cart.productid}}</td>
+            <td scope="row">{{ cart.productname}}</td>
+            <td scope="row">{{ cart.quantity}}</td>
+            <td scope="row>">{{ cart.price * cart.quantity}}</td>
+            <td scope="row"> 
+                <a class="btn btn-outline-danger" href="{{ path ( 'cart_delete' , {'id' : cart.id } ) }}"
+                                          onclick = "return confirm('Are you sure to delete ?')"
+                >Delete</a>
+            </td>
+        </tr> 
+        {% endif %}
+    {% endfor %}
+    <tr>
+            <td scope="row"></td>
+            <td scope="row"></td>
+            <td scope="row"></td>
+            <td scope="row"></td>
+            <td scope="row"></td>
+            <td scope="row>">{{sum}}</td>
+        </tr>
+    </tbody>
+    
+</table>
+<div class="d-flex justify-content-center">
+<a class="btn btn-outline-primary" href="{{ path ('customer_create') }}">Create Customer</a>
+</div>
+{% endblock %}

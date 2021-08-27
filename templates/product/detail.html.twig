@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Product Detail {% endblock %}
+
+{% block body %}
+
+<div class="container-fluid">
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Product Name</th>
+            <th scope="col">Product Description</th>
+            <th scope="col">Product Price</th>
+            <th scope="col">Product Image</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td scope="row">{{ product.name }}</td>
+            <td scope="row">{{ product.description }}</td>
+            <td scope="row">{{ product.price }}</td>
+            <td scope="row">
+                <img src="{{ asset('images/products/' ~ product.getImage())}}" width="300px" height="200px">
+            </td>
+            <td scope="row"> 
+                <a class="btn btn-outline-warning" href="{{ path ( 'product_update' , {'id' : product.id } ) }}">Update</a>
+                <a class="btn btn-outline-danger" href="{{ path ( 'product_delete' , {'id' : product.id } ) }}"
+                                          onclick = "return confirm('Are you sure to delete ?')"
+                >Delete</a>
+            </td>
+        </tr> 
+    </tbody>
+</table>
+<div class="d-flex justify-content-center">
+<a class="btn btn-outline-primary" href="{{ path ('product_create') }}">Create Product</a>
+</div>
+</div>
+{% endblock %}

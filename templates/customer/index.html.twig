@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Customer List {% endblock %}
+
+{% block body %}
+
+<div class="container mt-3">
+    {% for flash in app.flashes("Success") %}
+        <p class="alert alert-primary"> {{ flash }} </p>
+    {% endfor %}
+    {% for flash in app.flashes("Error") %}
+        <p class="alert alert-danger"> {{ flash }} </p>
+    {% endfor %}
+</div>
+
+<div class="container-fluid">
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Customer ID</th>
+            <th scope="col">Customer Name</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for customer in customers %}
+        <tr>
+            <td scope="row">{{ customer.id }}</td>
+            <td scope="row">{{ customer.name }}</td>
+            <td scope="row"> 
+                <a class="btn btn-outline-info" href="{{ path ( 'customer_detail' , {'id' : customer.id } ) }}">Detail</a>
+                <a class="btn btn-outline-warning" href="{{ path ( 'customer_update' , {'id' : customer.id } ) }}">Update</a>
+                <a class="btn btn-outline-danger" href="{{ path ( 'customer_delete' , {'id' : customer.id } ) }}"
+                                          onclick = "return confirm('Are you sure to delete ?')"
+                >Delete</a>
+            </td>
+        </tr> 
+    {% endfor %}
+    </tbody>
+</table>
+<div class="d-flex justify-content-center">
+<a class="btn btn-outline-primary" href="{{ path ('customer_create') }}">Create Customer</a>
+</div>
+</div>
+{% endblock %}
+

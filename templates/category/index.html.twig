@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Customer List {% endblock %}
+
+{% block body %}
+
+<div class="container mt-3">
+    {% for flash in app.flashes("Success") %}
+        <p class="alert alert-primary"> {{ flash }} </p>
+    {% endfor %}
+    {% for flash in app.flashes("Error") %}
+        <p class="alert alert-danger"> {{ flash }} </p>
+    {% endfor %}
+</div>
+
+<div class="container-fluid">
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Category ID</th>
+            <th scope="col">Category</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for category in categories %}
+        <tr>
+            <td scope="row">{{ category.id }}</td>
+            <td scope="row">{{ category.name }}</td>
+            <td scope="row"> 
+                <a class="btn btn-outline-info" href="/category/detail/{{category.id}}">Detail</a>
+                <a class="btn btn-outline-danger" href="/category/delete/{{category.id}}" onclick = "return confirm('Are you sure to delete ?')">Delete</a>
+            </td>
+        </tr> 
+    {% endfor %}
+    </tbody>
+</table>
+<div class="d-flex justify-content-center">
+<a class="btn btn-outline-primary" href="{{ path ('category_create') }}">Create Category</a>
+</div>
+</div>
+{% endblock %}
+
